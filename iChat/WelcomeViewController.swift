@@ -19,14 +19,27 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        print("login")
+       
+        dismissKeyBoard()
     }
     
     @IBAction func registerButtonPressed(_ sender: Any) {
-             print("register")
+    
+        dismissKeyBoard()
     }
     @IBAction func tapGestureClicked(_ sender: Any) {
-             print("tap gesture")
+        
+        dismissKeyBoard()
+    }
+    
+    func dismissKeyBoard(){
+        self.view.endEditing(false)
+    }
+    
+    func clearTextField(){
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        repeatPasswordTextField.text = ""
     }
     
 }
