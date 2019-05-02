@@ -61,6 +61,7 @@ class WelcomeViewController: UIViewController {
             }
             else{
                 // present the app
+                self.goToMainView()
             }
         }
     }
@@ -79,6 +80,10 @@ class WelcomeViewController: UIViewController {
             vc.email = emailTextField.text!
             vc.password = passwordTextField.text!
         }
+    }
+    func goToMainView(){
+        let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
+        self.present(mainView, animated: true, completion: nil)
     }
     
 }
