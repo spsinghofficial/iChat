@@ -13,11 +13,22 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var authListener: AuthStateDidChangeListenerHandle?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        authListener = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if(user != nil){
+                if (UserDefaults.standard.object(forKey: kCURRENTUSER) != nil){
+                    DispatchQueue.main.async {
+                        self.goToMainView()
+                    }
+                }
+            }
+        })
+        
         return true
     }
 
@@ -43,6 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func goToMainView(){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: USER_DID_LOGIN_NOTIFICATION), object: nil, userInfo: [kUSERID: FUser.currentId()])
+        let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarVC") as! UITabBarController
+       self.window?.rootViewController = mainView
+        
+    }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1BA8E0C833BA21C430C3637F /* Pods_iChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD0CE869CC8CE9216C999196 /* Pods_iChat.framework */; };
+		5B06F9CC227B6C930090F0C9 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B06F9CB227B6C930090F0C9 /* SettingsTableViewController.swift */; };
 		5B5D44A02279117300FA1AD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D449F2279117300FA1AD4 /* AppDelegate.swift */; };
 		5B5D44A52279117300FA1AD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D44A32279117300FA1AD4 /* Main.storyboard */; };
 		5B5D44A72279117400FA1AD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D44A62279117400FA1AD4 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		529A8989BC9DB09920896BF8 /* Pods-iChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.release.xcconfig"; path = "Target Support Files/Pods-iChat/Pods-iChat.release.xcconfig"; sourceTree = "<group>"; };
+		5B06F9CB227B6C930090F0C9 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5B5D449C2279117300FA1AD4 /* iChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5D449F2279117300FA1AD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B5D44A42279117300FA1AD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				5B5D44B12279154F00FA1AD4 /* WelcomeViewController.swift */,
 				5BB989CD227A615B003D01D8 /* RegisterViewController.swift */,
+				5B06F9CB227B6C930090F0C9 /* SettingsTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				5B5D44B22279154F00FA1AD4 /* WelcomeViewController.swift in Sources */,
 				5BB989CE227A615B003D01D8 /* RegisterViewController.swift in Sources */,
 				5BB989C22279CC81003D01D8 /* Constants.swift in Sources */,
+				5B06F9CC227B6C930090F0C9 /* SettingsTableViewController.swift in Sources */,
 				5BB989C62279CDD7003D01D8 /* CollectionReference.swift in Sources */,
 				5BB989C42279CD33003D01D8 /* FUser.swift in Sources */,
 				5BB989C82279CE6F003D01D8 /* HelperFunctions.swift in Sources */,
