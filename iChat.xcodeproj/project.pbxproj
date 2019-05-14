@@ -14,6 +14,8 @@
 		5B5D44A72279117400FA1AD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D44A62279117400FA1AD4 /* Assets.xcassets */; };
 		5B5D44AA2279117400FA1AD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D44A82279117400FA1AD4 /* LaunchScreen.storyboard */; };
 		5B5D44B22279154F00FA1AD4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D44B12279154F00FA1AD4 /* WelcomeViewController.swift */; };
+		5BA88D332285F47E00AA0EEF /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA88D322285F47E00AA0EEF /* UserTableViewCell.swift */; };
+		5BA88D352286107A00AA0EEF /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA88D342286107A00AA0EEF /* UserTableViewController.swift */; };
 		5BB989C02279C433003D01D8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5BB989BF2279C433003D01D8 /* GoogleService-Info.plist */; };
 		5BB989C22279CC81003D01D8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB989C12279CC81003D01D8 /* Constants.swift */; };
 		5BB989C42279CD33003D01D8 /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB989C32279CD33003D01D8 /* FUser.swift */; };
@@ -32,6 +34,8 @@
 		5B5D44A92279117400FA1AD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B5D44AB2279117400FA1AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B5D44B12279154F00FA1AD4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		5BA88D322285F47E00AA0EEF /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		5BA88D342286107A00AA0EEF /* UserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		5BB989BF2279C433003D01D8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5BB989C12279CC81003D01D8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5BB989C32279CD33003D01D8 /* FUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUser.swift; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				5B5D44B12279154F00FA1AD4 /* WelcomeViewController.swift */,
 				5BB989CD227A615B003D01D8 /* RegisterViewController.swift */,
 				5B06F9CB227B6C930090F0C9 /* SettingsTableViewController.swift */,
+				5BA88D322285F47E00AA0EEF /* UserTableViewCell.swift */,
+				5BA88D342286107A00AA0EEF /* UserTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -296,7 +302,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA88D352286107A00AA0EEF /* UserTableViewController.swift in Sources */,
 				5B5D44A02279117300FA1AD4 /* AppDelegate.swift in Sources */,
+				5BA88D332285F47E00AA0EEF /* UserTableViewCell.swift in Sources */,
 				5B5D44B22279154F00FA1AD4 /* WelcomeViewController.swift in Sources */,
 				5BB989CE227A615B003D01D8 /* RegisterViewController.swift in Sources */,
 				5BB989C22279CC81003D01D8 /* Constants.swift in Sources */,

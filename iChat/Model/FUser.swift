@@ -213,7 +213,7 @@ class FUser {
             
             
             saveUserLocally(fUser: fUser)
-            saveUserToFirestore(fUser: fUser)
+            saveUserToFirestore(fUser: fUser) //    WHAT IF THIS FAILS
             completion(error)
             
         })
