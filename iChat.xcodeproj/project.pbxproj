@@ -22,6 +22,7 @@
 		5BB989C62279CDD7003D01D8 /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB989C52279CDD7003D01D8 /* CollectionReference.swift */; };
 		5BB989C82279CE6F003D01D8 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB989C72279CE6F003D01D8 /* HelperFunctions.swift */; };
 		5BB989CE227A615B003D01D8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB989CD227A615B003D01D8 /* RegisterViewController.swift */; };
+		5BEC7161228A6D3C0005D963 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC7160228A6D3C0005D963 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		5BB989C52279CDD7003D01D8 /* CollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
 		5BB989C72279CE6F003D01D8 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		5BB989CD227A615B003D01D8 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		5BEC7160228A6D3C0005D963 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		9820B0A41657E8D12A792CD9 /* Pods-iChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iChat.debug.xcconfig"; path = "Target Support Files/Pods-iChat/Pods-iChat.debug.xcconfig"; sourceTree = "<group>"; };
 		DD0CE869CC8CE9216C999196 /* Pods_iChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,6 +128,7 @@
 				5B06F9CB227B6C930090F0C9 /* SettingsTableViewController.swift */,
 				5BA88D322285F47E00AA0EEF /* UserTableViewCell.swift */,
 				5BA88D342286107A00AA0EEF /* UserTableViewController.swift */,
+				5BEC7160228A6D3C0005D963 /* ChatViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			files = (
 				5BA88D352286107A00AA0EEF /* UserTableViewController.swift in Sources */,
 				5B5D44A02279117300FA1AD4 /* AppDelegate.swift in Sources */,
+				5BEC7161228A6D3C0005D963 /* ChatViewController.swift in Sources */,
 				5BA88D332285F47E00AA0EEF /* UserTableViewCell.swift in Sources */,
 				5B5D44B22279154F00FA1AD4 /* WelcomeViewController.swift in Sources */,
 				5BB989CE227A615B003D01D8 /* RegisterViewController.swift in Sources */,

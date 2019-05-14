@@ -23,6 +23,10 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
     let searchController = UISearchController(searchResultsController: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Users"
+        navigationItem.largeTitleDisplayMode = .never
+        tableView.tableFooterView = UIView()
+        loadUsers(filter: kCITY)
 
     }
 
@@ -30,18 +34,18 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
        
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
-        return 1
+        return allUser.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "usertablecell", for: indexPath) as! UserTableViewCell
-
+        cell.generateCellWith(fuser: allUser[indexPath.row], indexPath: indexPath)
        
 
         return cell
@@ -92,6 +96,49 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func loadUsers(filter: String){
+        ProgressHUD.show()
+        var query : Query!
+        
+        switch filter {
+        case kCITY:
+            query = reference(.User).whereField(kCITY, isEqualTo: FUser.currentUser()?.city).order(by: kFIRSTNAME
+                , descending: false)
+        case  kCOUNTRY:
+            query = reference(.User).whereField(kCOUNTRY, isEqualTo: FUser.currentUser()?.country).order(by:kFIRSTNAME, descending: false)
+        default:
+            query = reference(.User).order(by: kFIRSTNAME, descending: false)
+        }
+        query.getDocuments { (snapshot, error) in
+            self.allUser = []
+            self.filteredUsers = []
+            self.allUsersGrouped = [:]
+            if error != nil{
+                ProgressHUD.dismiss()
+                self.tableView.reloadData()
+                return
+            }
+            guard let snapshot = snapshot else{
+                ProgressHUD.dismiss()
+                return
+            }
+            
+            if !snapshot.isEmpty{
+                for userDictionary in snapshot.documents{
+                    let userDictionary = userDictionary.data() as! NSDictionary
+                    let fUser = FUser(_dictionary: userDictionary)
+                    if fUser.objectId != FUser.currentId() {
+                        self.allUser.append(fUser)
+                    }
+                }
+                // split to groups
+            }
+            self.tableView.reloadData()
+            ProgressHUD.dismiss()
+        }
+    
+    }
     func searchUserWithtext(searchText: String, scope: String = "All") {
         filteredUsers = allUser.filter({ (user) -> Bool in
             return user.firstname.lowercased().contains(searchText.lowercased())
@@ -103,5 +150,19 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
         searchUserWithtext(searchText: searchController.searchBar.text!)
     }
     
-
+    @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            loadUsers(filter: kCITY)
+            
+        case 1:
+            loadUsers(filter: kCOUNTRY)
+        case 2:
+            loadUsers(filter: "")
+            
+        default:
+            return
+        }
+    }
+    
 }
