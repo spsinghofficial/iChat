@@ -5,7 +5,9 @@
 //  Created by surinder pal singh sidhu on 2019-05-10.
 //  Copyright © 2019 surinder pal singh sidhu. All rights reserved.
 //
-
+protocol UserTableViewCellDelegate {
+    func didTapAvatarimage(indexPath: IndexPath)
+}
 import UIKit
 
 class UserTableViewCell: UITableViewCell {
@@ -13,6 +15,7 @@ class UserTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     var indexPath : IndexPath!
+    var delegate: UserTableViewCellDelegate?
     let tapGestureRecogniser = UITapGestureRecognizer()
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,7 +42,7 @@ class UserTableViewCell: UITableViewCell {
         
     }
    @objc func avatartap(){
-        print("avatar tapped at index\(indexPath)")
+        delegate!.didTapAvatarimage(indexPath: indexPath)
     }
 
 }

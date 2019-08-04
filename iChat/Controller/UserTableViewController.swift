@@ -10,7 +10,8 @@ import UIKit
 import Firebase
 import ProgressHUD
 
-class UserTableViewController: UITableViewController, UISearchResultsUpdating {
+class UserTableViewController: UITableViewController, UISearchResultsUpdating,UserTableViewCellDelegate {
+   
    
 
     @IBOutlet weak var headerView: UIView!
@@ -19,14 +20,19 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
     var allUser: [FUser] = []
     var filteredUsers:[FUser] = []
     var allUsersGrouped =  NSDictionary() as! [String : [FUser]]
-    var sectionTitle = [String]()
+    var sectionTitle : [String] = []
     let searchController = UISearchController(searchResultsController: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
+         loadUsers(filter: kCITY)
         self.title = "Users"
         navigationItem.largeTitleDisplayMode = .never
         tableView.tableFooterView = UIView()
-        loadUsers(filter: kCITY)
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+       
 
     }
 
@@ -34,69 +40,89 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
        
-        return 1
+        if(searchController.isActive && searchController.searchBar.text != ""){
+            return 1
+        }
+        else{
+            return allUsersGrouped.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        
-        return allUser.count
+        if(searchController.isActive && searchController.searchBar.text != ""){
+            return filteredUsers.count
+        }
+        else{
+            // find section title
+            let sectionTitle = self.sectionTitle[section]
+            
+            // find user at that section
+            
+            let users = self.allUsersGrouped[sectionTitle]
+            return users!.count
+        }
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "usertablecell", for: indexPath) as! UserTableViewCell
-        cell.generateCellWith(fuser: allUser[indexPath.row], indexPath: indexPath)
-       
+        var user: FUser
+        if(searchController.isActive && searchController.searchBar.text != ""){
+           user = filteredUsers[indexPath.row]
+        }
+        else{
+          
+          let sectiontitle = sectionTitle[indexPath.section]
+            var users = allUsersGrouped[sectiontitle]
+            user = users![indexPath.row]
+            
+          
+            
+        }
+        cell.generateCellWith(fuser:user, indexPath: indexPath)
+       cell.delegate = self
 
         return cell
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        var user: FUser
+        if(searchController.isActive && searchController.searchBar.text != ""){
+            user = filteredUsers[indexPath.row]
+        }
+        else{
+            
+            let sectiontitle = sectionTitle[indexPath.section]
+            var users = allUsersGrouped[sectiontitle]
+            user = users![indexPath.row]
+            
+            
+            
+        }
+        startPrivateChat(user1: FUser.currentUser()!, user2: user)
+    }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if(searchController.isActive && searchController.searchBar.text != ""){
+           return ""
+        }
+        else{
+            return sectionTitle[section]
+        }
+    }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if(searchController.isActive && searchController.searchBar.text != ""){
+            return nil
+        }
+        else{
+            return self.sectionTitle
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return index
+    }
     func loadUsers(filter: String){
         ProgressHUD.show()
         var query : Query!
@@ -130,9 +156,12 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
                     let fUser = FUser(_dictionary: userDictionary)
                     if fUser.objectId != FUser.currentId() {
                         self.allUser.append(fUser)
+                       
                     }
                 }
                 // split to groups
+                self.splitIntoSection()
+                self.tableView.reloadData()
             }
             self.tableView.reloadData()
             ProgressHUD.dismiss()
@@ -163,6 +192,41 @@ class UserTableViewController: UITableViewController, UISearchResultsUpdating {
         default:
             return
         }
+    }
+    fileprivate func splitIntoSection(){
+        var sectionTitle = ""
+        for i in 0..<self.allUser.count{
+            let currentUser = allUser[i]
+            let firstChar = currentUser.firstname.first!
+            let firstCharString = "\(firstChar)"
+            if firstCharString != sectionTitle{
+                sectionTitle = firstCharString
+                self.allUsersGrouped[sectionTitle] = []
+                self.sectionTitle.append(sectionTitle)
+            }
+            self.allUsersGrouped[firstCharString]?.append(currentUser)
+       
+        }
+    }
+    
+    func didTapAvatarimage(indexPath: IndexPath) {
+       let profileVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileView") as! ProfileViewTableTableViewController
+        var user: FUser
+        if(searchController.isActive && searchController.searchBar.text != ""){
+            user = filteredUsers[indexPath.row]
+        }
+        else{
+            
+            let sectiontitle = sectionTitle[indexPath.section]
+            var users = allUsersGrouped[sectiontitle]
+            user = users![indexPath.row]
+            
+            
+            
+        }
+        profileVC.user = user
+        
+        navigationController?.pushViewController(profileVC, animated: true)
     }
     
 }
